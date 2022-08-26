@@ -1,7 +1,8 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import axios from "axios"
 import "./SearchBar.css"
 import SearchIcon from "@mui/icons-material/Search"
+import Spinner from "./Spinner"
 
 function SearchBar({ placeholder }) {
   const library = [
@@ -12,14 +13,25 @@ function SearchBar({ placeholder }) {
     "新北UDN",
     "臺北UDN",
   ]
+  const storedSearch = JSON.parse(localStorage.getItem("search"))
+  const [loading, setLoading] = useState(false)
   const [bookname, setBookname] = useState("")
   const [result, setResult] = useState("")
-  const [search, setSearch] = useState(new Array(library.length).fill(true))
+  const [search, setSearch] = useState(
+    storedSearch || new Array(library.length).fill(true)
+  )
+  useEffect(() => {
+    localStorage.setItem("search", JSON.stringify(search))
+  }, [JSON.stringify(search)])
+
   const handleChange = (position) => {
     const updatedCheckedState = search.map((item, index) =>
       index === position ? !item : item
     )
     setSearch(updatedCheckedState)
+  }
+  const handleClick = (e) => {
+    if (e.key === "Enter") postName()
   }
   let libList = []
   library.forEach((lib, index) => {
@@ -42,22 +54,22 @@ function SearchBar({ placeholder }) {
   })
 
   function postName() {
-    // let urlAll = [
-    //   `http://localhost:4000/xinbeilib?${bookname}`,
-    //   `http://localhost:4000/taipeilib?${bookname}`,
-    //   `http://localhost:4000/hyxinbei?${bookname}`,
-    //   `http://localhost:4000/hytaipei?${bookname}`,
-    //   `http://localhost:4000/udnxinbei?${bookname}`,
-    //   `http://localhost:4000/udntaipei?${bookname}`,
-    // ]
     let urlAll = [
-      `https://lib-search-api.herokuapp.com/xinbeilib?${bookname}`,
-      `https://lib-search-api.herokuapp.com/taipeilib?${bookname}`,
-      `https://lib-search-api.herokuapp.com/hyxinbei?${bookname}`,
-      `https://lib-search-api.herokuapp.com/hytaipei?${bookname}`,
-      `https://lib-search-api.herokuapp.com/udnxinbei?${bookname}`,
-      `https://lib-search-api.herokuapp.com/udntaipei?${bookname}`,
+      `http://localhost:4000/xinbeilib?${bookname}`,
+      `http://localhost:4000/taipeilib?${bookname}`,
+      `http://localhost:4000/hyxinbei?${bookname}`,
+      `http://localhost:4000/hytaipei?${bookname}`,
+      `http://localhost:4000/udnxinbei?${bookname}`,
+      `http://localhost:4000/udntaipei?${bookname}`,
     ]
+    // let urlAll = [
+    //   `https://lib-search-api.herokuapp.com/xinbeilib?${bookname}`,
+    //   `https://lib-search-api.herokuapp.com/taipeilib?${bookname}`,
+    //   `https://lib-search-api.herokuapp.com/hyxinbei?${bookname}`,
+    //   `https://lib-search-api.herokuapp.com/hytaipei?${bookname}`,
+    //   `https://lib-search-api.herokuapp.com/udnxinbei?${bookname}`,
+    //   `https://lib-search-api.herokuapp.com/udntaipei?${bookname}`,
+    // ]
 
     let obj = {}
     let arr = []
@@ -103,19 +115,24 @@ function SearchBar({ placeholder }) {
           </li>
         )
       }
+
       setResult(tempBook)
+      setLoading(false)
     }
+    setLoading(true)
     getBook()
   }
 
   return (
     <div className="wrap">
       <div className="search">
+        <h2>圖書館跨館搜尋</h2>
         <div className="searchInputs">
           <input
             type="text"
             placeholder={placeholder}
             onChange={(e) => setBookname(e.target.value)}
+            onKeyPress={handleClick}
           />
           <div className="searchIcon">
             <SearchIcon onClick={postName} />
@@ -125,8 +142,10 @@ function SearchBar({ placeholder }) {
       </div>
       <div className="result">
         <div className="X">
-          <h1>搜尋結果</h1>
-          <ul className="SG">{result}</ul>
+          <h3>搜尋結果</h3>
+          <span>
+            {loading ? <Spinner /> : <ul className="SG">{result}</ul>}
+          </span>
         </div>
       </div>
     </div>
