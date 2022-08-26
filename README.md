@@ -11,11 +11,13 @@ https://liang10339.github.io/library-search-app/
 Frontend :
 - React 18.2.0
 - ReactDOM 18.2.0
+- React Spinners
 - Create React App
 - React Hooks
 - Axios
 - Emotion
 - MUI
+- localStorage
 
 Backend :
 - Node.js
