@@ -30,7 +30,4 @@ Backend :
 ## :camera: Screenshots
 
 
-<<<<<<< HEAD
 
-=======
->>>>>>> c9158e6 (update README.md)
