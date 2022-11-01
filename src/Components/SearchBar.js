@@ -54,22 +54,22 @@ function SearchBar({ placeholder }) {
   })
 
   function postName() {
-    let urlAll = [
-      `http://localhost:4000/xinbeilib?${bookname}`,
-      `http://localhost:4000/taipeilib?${bookname}`,
-      `http://localhost:4000/hyxinbei?${bookname}`,
-      `http://localhost:4000/hytaipei?${bookname}`,
-      `http://localhost:4000/udnxinbei?${bookname}`,
-      `http://localhost:4000/udntaipei?${bookname}`,
-    ]
     // let urlAll = [
-    //   `https://lib-search-api.herokuapp.com/xinbeilib?${bookname}`,
-    //   `https://lib-search-api.herokuapp.com/taipeilib?${bookname}`,
-    //   `https://lib-search-api.herokuapp.com/hyxinbei?${bookname}`,
-    //   `https://lib-search-api.herokuapp.com/hytaipei?${bookname}`,
-    //   `https://lib-search-api.herokuapp.com/udnxinbei?${bookname}`,
-    //   `https://lib-search-api.herokuapp.com/udntaipei?${bookname}`,
+    //   `http://localhost:4000/xinbeilib?${bookname}`,
+    //   `http://localhost:4000/taipeilib?${bookname}`,
+    //   `http://localhost:4000/hyxinbei?${bookname}`,
+    //   `http://localhost:4000/hytaipei?${bookname}`,
+    //   `http://localhost:4000/udnxinbei?${bookname}`,
+    //   `http://localhost:4000/udntaipei?${bookname}`,
     // ]
+    let urlAll = [
+      `http://library-search.fly.dev/xinbeilib?${bookname}`,
+      `http://library-search.fly.dev/taipeilib?${bookname}`,
+      `http://library-search.fly.dev/hyxinbei?${bookname}`,
+      `http://library-search.fly.dev/hytaipei?${bookname}`,
+      `http://library-search.fly.dev/udnxinbei?${bookname}`,
+      `http://library-search.fly.dev/udntaipei?${bookname}`,
+    ]
 
     let obj = {}
     let arr = []
