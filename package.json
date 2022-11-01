@@ -1,6 +1,6 @@
 {
   "name": "client",
-  "homepage": "https://liang10339.github.io/library-search-app",
+  "homepage": "http://liang10339.github.io/library-search-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
